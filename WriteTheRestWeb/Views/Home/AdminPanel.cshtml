@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hikaye Ekleme</title>
+    <link rel="stylesheet" href="~/css/AdminPanel.css" />
+</head>
+<body>
+    <div class="story-container">
+        <!-- Ekleme Formu -->
+        <form id="storyForm" class="story-form">
+            <input type="text" id="username" placeholder="Hikaye Adı" required />
+            <input type="text" id="sentence" placeholder="Hikaye'nin ilk cümlesi" required />
+            <button type="submit">Ekle</button>
+        </form>
+
+        <!-- Hikaye Tablosu -->
+        <table class="story-table">
+            <thead>
+                <tr>
+                    <th>Hikaye Adı</th>
+                    <th>Hikayenin İlk Cümlesi</th>
+                    <th colspan="2">İşlem</th>
+                </tr>
+            </thead>
+            <tbody id="storyBody">
+                <!-- Statik örnek veriler -->
+                <tr>
+                    <td>Ali</td>
+                    <td>Bir varmış bir yokmuş...</td>
+                    <td>
+                        <form method="post" action="/Story/Edit">
+                            <input type="hidden" name="name" value="Ali" />
+                            <button type="submit" class="edit-btn" asp-controller="Home" asp-action="AdminPanelEdit">Düzenle</button>
+                        </form>
+                    </td>
+                    <td>
+                        <button class="delete-btn">Sil</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ayşe</td>
+                    <td>Uzak diyarlarda bir köy varmış.</td>
+                    <td>
+                        <form method="post" action="/Story/Edit">
+                            <input type="hidden" name="name" value="Ayşe" />
+                            <button type="submit" class="edit-btn" asp-controller="Home" asp-action="AdminPanelEdit">Düzenle</button>
+                        </form>
+                    </td>
+                    <td>
+                        <button class="delete-btn">Sil</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        const form = document.getElementById("storyForm");
+        const tbody = document.getElementById("storyBody");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById("username").value.trim();
+            const sentence = document.getElementById("sentence").value.trim();
+
+            if (username && sentence) {
+                const row = document.createElement("tr");
+
+                const userCell = document.createElement("td");
+                userCell.textContent = username;
+
+                const sentenceCell = document.createElement("td");
+                sentenceCell.textContent = sentence;
+
+                // Edit form
+                const editCell = document.createElement("td");
+                const editForm = document.createElement("form");
+                editForm.method = "post";
+                editForm.action = "/Home/AdminPanelEdit"; // Controller adı ve action adı
+
+                const hiddenInput = document.createElement("input");
+                hiddenInput.type = "hidden";
+                hiddenInput.name = "name";
+                hiddenInput.value = username;
+
+                const editBtn = document.createElement("button");
+                editBtn.type = "submit";
+                editBtn.classList.add("edit-btn");
+                editBtn.textContent = "Düzenle";
+
+                editForm.appendChild(hiddenInput);
+                editForm.appendChild(editBtn);
+                editCell.appendChild(editForm);
+
+                // Sil butonu
+                const deleteCell = document.createElement("td");
+                const deleteBtn = document.createElement("button");
+                deleteBtn.textContent = "Sil";
+                deleteBtn.classList.add("delete-btn");
+                deleteBtn.addEventListener("click", () => {
+                    tbody.removeChild(row);
+                });
+                deleteCell.appendChild(deleteBtn);
+
+                row.appendChild(userCell);
+                row.appendChild(sentenceCell);
+                row.appendChild(editCell);
+                row.appendChild(deleteCell);
+
+                tbody.appendChild(row);
+
+                form.reset();
+            }
+        });
+
+        // Mevcut sil butonları için event ekle
+        document.querySelectorAll(".delete-btn").forEach(button => {
+            button.addEventListener("click", (e) => {
+                const row = e.target.closest("tr");
+                if (row) row.remove();
+            });
+        });
+    </script>
+</body>
+</html>
