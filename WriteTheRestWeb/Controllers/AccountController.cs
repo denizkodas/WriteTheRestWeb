@@ -26,5 +26,9 @@ namespace WriteTheRestWeb.Controllers
         {
             return View();
         }
+        public IActionResult EmailVerification()
+        {
+            return View();
+        }
     }
 }

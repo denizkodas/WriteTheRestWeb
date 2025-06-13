@@ -38,7 +38,14 @@ namespace WriteTheRestWeb.Controllers
         {
             return View();
         }
-
+        public IActionResult Profile()
+        {
+            return View();
+        }
+        public IActionResult ProfileEdit()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {
