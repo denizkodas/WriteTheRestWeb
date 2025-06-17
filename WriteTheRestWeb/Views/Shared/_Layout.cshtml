@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Unifinder</title>
+    <title>WriteTheRest</title>
     <link rel="stylesheet" href="~/css/_Layout.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
@@ -18,16 +18,16 @@
                 </div>
             </div>
             <div class="icon-menu">
-                <div class="icon" onclick="location.href='@Url.Action("Profile", "Home")'">
+                <div class="icon" data-tooltip="Profil" onclick="location.href='@Url.Action("Profile", "Home")'">
                     <i class="fa-regular fa-user"></i>
                 </div>
-                <div class="icon" onclick="location.href='@Url.Action("Index", "Home")'">
+                <div class="icon" data-tooltip="Kitaplar" onclick="location.href='@Url.Action("Index", "Home")'">
                     <i class="fa-solid fa-book"></i>
                 </div>
-                <div class="icon" onclick="location.href='@Url.Action("ProfileList", "Home")'">
+                <div class="icon" data-tooltip="Ara" onclick="location.href='@Url.Action("ProfileList", "Home")'">
                     <i class="fas fa-search"></i>
                 </div>
-                <div class="icon">
+                <div class="icon" data-tooltip="Ayarlar">
                     <i class="fas fa-cog"></i>
                 </div>
             </div>
@@ -35,6 +35,9 @@
 
         <!-- Sağ İçerik -->
         <main class="profile">
+            <div class="profile-logo">
+                <img src="~/images/WriteTheRest-Logo.png" alt="WriteTheRest Logo" />
+            </div>
             @RenderBody()
         </main>
     </div>

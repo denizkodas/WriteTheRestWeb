@@ -30,5 +30,9 @@ namespace WriteTheRestWeb.Controllers
         {
             return View();
         }
+        public IActionResult SplashScreen()
+        {
+            return View();
+        }
     }
 }
