@@ -104,6 +104,20 @@
     font-weight: bold;
     transition: background-color 0.3s ease;
 }
+.add-chapter-btn {
+    background-color: #28a745; /* yeşil uyumlu ton */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+    .add-chapter-btn:hover {
+        background-color: #1e7e34;
+    }
+
     .edit-btn:hover {
         background-color: #0b7dda;
     }

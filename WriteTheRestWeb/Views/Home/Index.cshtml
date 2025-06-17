@@ -12,6 +12,7 @@
             <thead>
                 <tr>
                     <th>Hikaye Adı</th>
+                    <th>Hikayenin Konusu</th>
                     <th>Bölüm Sayısı</th>
                     <th>İşlem</th>
                     <th>Devam Et</th>
@@ -26,9 +27,9 @@
 
     <script>
         const stories = [
-            { id: 1, name: "Ali'nin Macerası", chapterCount: 5 },
-            { id: 2, name: "Ayşe'nin Yolculuğu", chapterCount: 3 },
-            { id: 3, name: "Gizemli Orman", chapterCount: 7 }
+            { id: 1, name: "Ali'nin Macerası", topic: "Bir çocuk dünyayı keşfe çıkıyor.", chapterCount: 5 },
+            { id: 2, name: "Ayşe'nin Yolculuğu", topic: "Zorlu bir kış yolculuğu.", chapterCount: 3 },
+            { id: 3, name: "Gizemli Orman", topic: "Ormanda geçen esrarengiz olaylar.", chapterCount: 7 }
         ];
 
         const tbody = document.getElementById("storyBody");
@@ -38,6 +39,9 @@
 
             const nameCell = document.createElement("td");
             nameCell.textContent = story.name;
+
+            const topicCell = document.createElement("td");
+            topicCell.textContent = story.topic;
 
             const chapterCell = document.createElement("td");
             chapterCell.textContent = story.chapterCount;
@@ -90,22 +94,18 @@
                 const star = document.createElement("span");
                 star.classList.add("star");
                 star.dataset.value = i;
-                star.innerHTML = "&#9733;"; // Unicode yıldız ★
-                star.addEventListener("mouseover", function () {
-                    highlightStars(ratingCell, i);
-                });
-                star.addEventListener("mouseout", function () {
-                    resetStars(ratingCell);
-                });
-                star.addEventListener("click", function () {
+                star.innerHTML = "&#9733;";
+                star.addEventListener("mouseover", () => highlightStars(ratingCell, i));
+                star.addEventListener("mouseout", () => resetStars(ratingCell));
+                star.addEventListener("click", () => {
                     selectStars(ratingCell, i);
                     console.log(`Hikaye ID ${story.id} için verilen puan: ${i}`);
-                    // AJAX ile backend'e gönderilebilir
                 });
                 ratingCell.appendChild(star);
             }
 
             row.appendChild(nameCell);
+            row.appendChild(topicCell); // Yeni eklenen hücre
             row.appendChild(chapterCell);
             row.appendChild(viewCell);
             row.appendChild(continueCell);
@@ -117,11 +117,7 @@
         function highlightStars(cell, count) {
             const stars = cell.querySelectorAll(".star");
             stars.forEach((star, index) => {
-                if (index < count) {
-                    star.classList.add("hovered");
-                } else {
-                    star.classList.remove("hovered");
-                }
+                star.classList.toggle("hovered", index < count);
             });
         }
 
@@ -133,11 +129,7 @@
         function selectStars(cell, count) {
             const stars = cell.querySelectorAll(".star");
             stars.forEach((star, index) => {
-                if (index < count) {
-                    star.classList.add("selected");
-                } else {
-                    star.classList.remove("selected");
-                }
+                star.classList.toggle("selected", index < count);
             });
         }
     </script>

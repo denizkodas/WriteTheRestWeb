@@ -1,28 +1,51 @@
 ﻿
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@* @Model.Name *@</title>
+    <title>@* @Model.StoryName *@</title>
     <link rel="stylesheet" href="~/css/WatchStory.css" />
 </head>
 <body>
     <div class="story-container">
-        <h1 class="story-title">@* @Model.Name *@</h1>
-        <div class="story-content" id="storyText">
-            <p>@* @Model.Content *@</p>
+        <!-- Hikaye Başlığı ve Konusu -->
+        <div class="story-header">
+            <h1 class="story-title">@* @Model.StoryName *@dasdasdasd</h1>
+            <p class="story-topic">@* @Model.StoryTopic *@asdasdasdasdasdasd</p>
         </div>
-    </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const content = document.getElementById("storyText");
-            // Gerekirse içerik üzerinde işlem yapılabilir
-            if (content.innerText.trim().length === 0) {
-                content.innerHTML = "<em>Bu hikayenin içeriği bulunamadı.</em>";
-            }
-        });
-    </script>
+        <!-- Bölümler Tablosu -->
+        <table class="chapter-table">
+            <thead>
+                <tr>
+                    <th>Bölüm Adı</th>
+                    <th>Bölüm Konusu</th>
+                    <th>Versiyonları Gör</th>
+                    <th>Yaz</th>
+                </tr>
+            </thead>
+            <tbody>
+                @* @foreach (var bolum in Model.Bolumler)
+                { *@
+                    <tr>
+                        <td>@* @bolum.Baslik *@ Deniz Kodaşın Maceraları</td>
+                        <td>@* @bolum.Konu *@ İStanbulda geçen bir hikaye</td>
+                        <td>
+                            <form method="get" asp-controller="Home" asp-action="VersionsChapter" asp-route-bolumId="@* @bolum.Id *@">
+                            <button type="submit" class="btn btn-blue">Versiyonları Gör</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="get" asp-controller="Home" asp-action="ContinueStory" asp-route-bolumId="@* @bolum.Id *@">
+                                <button type="submit" class="btn">Yaz</button>
+                            </form>
+                        </td>
+                    </tr>
+                @* } *@
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

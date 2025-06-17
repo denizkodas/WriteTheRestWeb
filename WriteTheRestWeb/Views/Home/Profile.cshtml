@@ -19,16 +19,16 @@
                 <p class="email">
                     <i class="fas fa-envelope"></i> Email Adresi
 
-                  @*   @if (Model.EmailConfirmed)
-                    {
-                        <i class="fas fa-check-circle verified"></i>
-                    } *@
-                    @* else
+                   @*  @if (Model.EmailConfirmed)
                     { *@
+                        <i class="fas fa-check-circle verified"></i>
+                   @*  } *@
+                    @*  else
+                    { 
                         <form method="post" asp-controller="Account" asp-action="EmailVerification" style="display:inline; margin-left: 10px;">
                             <button type="submit" class="btn verify-btn"><i class="fas fa-check"></i> Doğrula</button>
                         </form>
-                    @* } *@
+                     }  *@
                 </p>
                 <p class="bio"><i class="fas fa-user"></i> Hakkımda kısmı burada yer alır.</p>
 

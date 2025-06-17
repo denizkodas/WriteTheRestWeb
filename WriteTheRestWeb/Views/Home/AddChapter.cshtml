@@ -1,0 +1,87 @@
+﻿
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bölüm Ekle</title>
+    <link rel="stylesheet" href="~/css/AdminPanel.css" />
+</head>
+<body>
+    <div class="story-container">
+        <!-- Seçilen Hikaye Bilgisi -->
+        <div class="header-info">
+            <h2>@* @Model.StoryName *@</h2>
+            <p><strong>Konu:</strong> @* @Model.StoryTopic *@</p>
+        </div>
+
+        <!-- Bölüm Ekleme Formu -->
+        <form id="chapterForm" class="story-form">
+            <input type="text" id="chapterName" placeholder="Bölüm Adı" required />
+            <input type="text" id="chapterTopic" placeholder="Bölüm Konusu" required />
+            <button type="submit">Ekle</button>
+        </form>
+
+        <!-- Bölümler Tablosu -->
+        <table class="story-table">
+            <thead>
+                <tr>
+                    <th>Bölüm Adı</th>
+                    <th>Bölüm Konusu</th>
+                    <th colspan="3">İşlem</th>
+                </tr>
+            </thead>
+            <tbody id="chapterBody">
+                @* @foreach (var chapter in Model.Chapters)
+                { *@
+                    <tr>
+                        <td>@* @chapter.Name *@</td>
+                        <td>@* @chapter.Topic *@</td>
+                        <td><button class="edit-btn" @* onclick="updateChapter('@chapter.Id')" *@>Güncelle</button></td>
+                        <td><button class="delete-btn"@*  onclick="deleteChapter('@chapter.Id')" *@>Sil</button></td>
+                    </tr>
+                @* } *@
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const form = document.getElementById("chapterForm");
+        const tbody = document.getElementById("chapterBody");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const chapterName = document.getElementById("chapterName").value.trim();
+            const chapterTopic = document.getElementById("chapterTopic").value.trim();
+
+            if (chapterName && chapterTopic) {
+                // AJAX ile backend'e post yapılabilir, şimdilik frontend'e ekleyelim
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${chapterName}</td>
+                    <td>${chapterTopic}</td>
+                    <td><button class="edit-btn" onclick="alert('Güncelleme için backend bağlantısı yapılmalı')">Güncelle</button></td>
+                    <td><button class="delete-btn" onclick="this.closest('tr').remove()">Sil</button></td>
+                `;
+
+                tbody.appendChild(row);
+                form.reset();
+            }
+        });
+
+        function updateChapter(id) {
+            alert("Bölüm güncelleme fonksiyonu çağrıldı. ID: " + id);
+            // Backend'e yönlendirilebilir
+        }
+
+        function deleteChapter(id) {
+            if (confirm("Bölümü silmek istediğinize emin misiniz?")) {
+                alert("Silme işlemi çağrıldı. ID: " + id);
+                // Backend silme işlemi yapılabilir
+            }
+        }
+    </script>
+</body>
+</html>

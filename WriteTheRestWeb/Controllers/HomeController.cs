@@ -51,6 +51,14 @@ namespace WriteTheRestWeb.Controllers
         {
             return View();
         }
+        public IActionResult VersionsChapter()
+        {
+            return View();
+        }
+        public IActionResult AddChapter()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
